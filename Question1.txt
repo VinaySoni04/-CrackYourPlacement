@@ -1,0 +1,16 @@
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int size=nums.length;
+        int ans[]=new int[size+1];
+        for(int i=0;i<size;i++)
+        {
+            ans[nums[i]]++;
+            if(ans[nums[i]]>1)
+                return nums[i];
+        }    
+        return size;
+    }
+}
+
+Time Complexity:- O(n)
+Aux Space:- O(n)

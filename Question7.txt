@@ -1,0 +1,21 @@
+// Two Pointer Method
+
+class Solution
+{
+    public long findMinDiff (ArrayList<Long> a, long n, long m)
+    {
+        Collections.sort(a);
+       int start=0;
+       int end = (int)m-1;
+       
+       long minimum = Integer.MAX_VALUE;
+       
+       while(end<=n-1){
+           long diff = a.get(end)-a.get(start);
+           minimum = Math.min(minimum,diff);
+           start++;
+           end++;
+       }
+       return minimum;
+    }
+}

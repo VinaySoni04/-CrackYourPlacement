@@ -1,0 +1,74 @@
+// Solution using Stack
+
+class Solution {
+    public int calculate(String s) {
+        if(s==null && s.length()==0)
+            return 0;
+        Stack<Integer> st=new Stack();
+        int curr=0;
+        char op='+';
+        char[] ch=s.toCharArray();
+        for(int i=0;i<ch.length;i++)
+        {
+            if(Character.isDigit(ch[i]))
+                curr=curr*10+ch[i]-'0';
+            if(!Character.isDigit(ch[i]) && ch[i]!=' ' || i==ch.length-1)
+            {
+                if(op=='+')
+                    st.push(curr);
+                else if(op=='-')
+                    st.push(-curr);
+                else if(op=='*')
+                    st.push(st.pop()*curr);
+                else if(op=='/')
+                    st.push(st.pop()/curr);
+                op=ch[i];
+                curr=0;
+            }
+        }
+        int ans=0;
+        while(!st.isEmpty())
+        {
+            ans=ans+st.pop();
+        }
+        return ans;
+    }
+}
+
+
+// Solution without Stack(From discussions)
+
+public class Solution {
+    public int calculate(String s) {
+        int sum = 0;
+        int tempSum = 0;
+        int num = 0;
+        char lastSign = '+';
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) num = num * 10 + c - '0';
+            if (i == s.length() - 1 || !Character.isDigit(c) && c!=' ') {
+                switch(lastSign) {
+                    case '+':
+                        sum+=tempSum;
+                        tempSum = num;
+                        break;
+                    case '-':
+                        sum+=tempSum;
+                        tempSum = -num;
+                        break;
+                    case '*':
+                        tempSum *= num;
+                        break;
+                    case '/':
+                        tempSum /= num;
+                        break;
+                }
+                lastSign = c;
+                num=0;
+            }
+        }
+        sum+=tempSum;
+        return sum;
+    }
+}

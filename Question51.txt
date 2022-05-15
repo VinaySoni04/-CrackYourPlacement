@@ -1,0 +1,43 @@
+class Solution{
+    static char[][] fill(int n, int m, char a[][])
+    {
+        if(n==0)
+            return a;
+        for(int i=0;i<a[0].length;i++)
+        {
+            if(a[0][i]=='O')
+                dfs(a,0,i);
+            if(a[n-1][i]=='O')
+                dfs(a,n-1,i);
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(a[i][0]=='O')
+                dfs(a,i,0);
+            if(a[i][a[0].length-1]=='O')
+                dfs(a,i,a[0].length-1);
+        }
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<a[0].length;j++)
+            {
+                if(a[i][j]=='#')
+                    a[i][j]='O';
+                else if(a[i][j]=='O')
+                    a[i][j]='X';
+            }
+        }
+        return a;
+    }
+    
+    private static void dfs(char[][] b,int i, int j)
+    {
+        if(i<0 || j<0 || i>b.length-1 || j>b[0].length-1 || b[i][j]!='O')
+            return;
+        b[i][j]='#';
+        dfs(b,i+1,j);
+        dfs(b,i-1,j);
+        dfs(b,i,j+1);
+        dfs(b,i,j-1);
+    }
+}

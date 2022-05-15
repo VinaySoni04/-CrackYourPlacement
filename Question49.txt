@@ -1,0 +1,56 @@
+Q. Maximum size rectangle binary sub-matrix with all 1s
+
+class Solution {
+    static int maxHist(int row[])
+    {
+        Stack<Integer> result = new Stack<Integer>();
+        int top_val; 
+        int max_area = 0; 
+        int area = 0;
+        int i = 0;
+        int C=row.length;
+        while (i < C) {
+            if (result.empty() || row[result.peek()] <= row[i])
+            {
+                result.push(i);
+                i++;
+            }
+            else 
+            {
+                top_val = row[result.peek()];
+                result.pop();
+                area = top_val * i;
+                if (!result.empty())
+                    area = top_val * (i - result.peek() - 1);
+                max_area = Math.max(area, max_area);
+            }
+        }
+        while (!result.empty()) {
+            top_val = row[result.peek()];
+            result.pop();
+            area = top_val * i;
+            if (!result.empty())
+                area = top_val * (i - result.peek() - 1);
+            max_area = Math.max(area, max_area);
+        }
+        return max_area;
+    }
+    
+    public int maxArea(int M[][], int n, int m) {
+        int currRow[]=M[0];
+        int maxAns=maxHist(currRow);
+        for(int i=1;i<n;i++)
+        {
+            for(int j=0;j<M[0].length;j++)
+            {
+                if(M[i][j]==1)
+                    currRow[j]++;
+                else
+                    currRow[j]=0;
+            }
+            int currAns=maxHist(currRow);
+            maxAns=Math.max(currAns,maxAns);
+        }
+        return maxAns;
+    }
+}

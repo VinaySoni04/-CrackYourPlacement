@@ -1,0 +1,20 @@
+Q. Find a pair with the given difference
+
+class GFG
+{
+  static boolean findPair(int[] arr, int size, int n)
+  {
+    HashMap<Integer,Integer> map = new HashMap<>();
+    int pair;
+    for(int i = 0; i < size; i++)
+    {     
+        map.put(arr[i],map.getOrDefault(arr[i], 0) + 1);
+    }
+    for (int i = 0; i < size; i++) {
+      if (map.containsKey(n + arr[i])) {
+       	pair=map.get(arr[i],n+arr[i]);
+      }
+    }
+    return pair;
+  }
+ 

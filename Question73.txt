@@ -1,0 +1,30 @@
+Q. Find Peak Element
+
+class Solution {
+    public int findPeakElement(int[] nums) {
+        int n=nums.length;
+        return peak(nums,0,n-1);
+    }
+    
+    private int peak(int[] nums, int start, int end)
+    {
+        if(start==end)
+            return start;
+        else if(start+1==end)
+        {
+            if(nums[start]>nums[end])
+                return start;
+            return end;
+        }
+        else
+        {
+            int m=(start+end)/2;
+            if(nums[m]>nums[m-1] && nums[m]>nums[m+1])
+                return m;
+            else if(nums[m-1]>nums[m] && nums[m]>nums[m+1])
+                return peak(nums,start,m-1);
+            else
+                return peak(nums,m+1,end);
+        }
+    }
+}

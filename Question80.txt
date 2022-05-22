@@ -1,0 +1,38 @@
+Q. Given a linked list of 0s, 1s and 2s, sort it
+
+class Solution
+{
+    static Node segregate(Node head)
+    {
+        int count[]=new int[3];
+        Node temp=head;
+        while(temp!=null)
+        {
+            count[temp.data]++;
+            temp=temp.next;
+        }
+        temp=head;
+        while(temp!=null)
+        {
+            if(count[0]!=0)
+            {
+                temp.data=0;
+                count[0]--;
+            }
+            else if(count[1]!=0)
+            {
+                temp.data=1;
+                count[1]--;
+            }
+            else
+            {
+                temp.data=2;
+                count[2]--;
+            }
+            temp=temp.next;
+        }
+        return head;
+    }
+}
+
+
